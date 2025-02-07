@@ -1,0 +1,17 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: test
+    volumes:
+      - ./app:/var/www/html
+      - ./certs/fullchain1.pem:/etc/ssl/certs/origin_certificate.pem
+      - ./certs/privkey1.pem:/etc/ssl/private/origin_private.key
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+#    networks:
+#      - app-network

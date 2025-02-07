@@ -1,8 +1,4 @@
-# Используем официальный образ PHP с Apache
 FROM php:8.1-apache
-
-# Устанавливаем необходимые расширения
-RUN docker-php-ext-install mysqli
 
 # Включаем модуль SSL
 RUN a2enmod ssl
