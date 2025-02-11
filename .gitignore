@@ -1,5 +1,4 @@
 .env
-.bot_token.txt
 composer.json
 composer.lock
 /vendor

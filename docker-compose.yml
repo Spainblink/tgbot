@@ -1,4 +1,12 @@
 services:
+  composer:
+    image: composer:2
+    volumes:
+      - ./composer.json:/app/composer.json
+      - ./composer.lock:/app/composer.lock
+    working_dir: /app
+    command: ["composer", install]
+
   web:
     build:
       context: .
@@ -6,6 +14,7 @@ services:
     container_name: test
     volumes:
       - ./app:/var/www/html
+      - ./vendor:/var/www/html/vendor
       - ./certs/fullchain1.pem:/etc/ssl/certs/origin_certificate.pem
       - ./certs/privkey1.pem:/etc/ssl/private/origin_private.key
     ports:
@@ -13,5 +22,4 @@ services:
       - "443:443"
     environment:
       - BOT_TOKEN=${BOT_TOKEN}
-#    networks:
-#      - app-network
+      - BOT_NAME=${BOT_NAME}
