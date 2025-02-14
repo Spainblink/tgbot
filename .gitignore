@@ -1,6 +1,7 @@
 .env
 composer.json
 composer.lock
+log.txt
 /vendor
 /certs
 /vendor/
