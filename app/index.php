@@ -10,7 +10,6 @@ use classes\MainHandler;
 use classes\LogHelper;
 use Longman\TelegramBot\Telegram;
 use Longman\TelegramBot\Request;
-use Longman\TelegramBot\Entities\Update;
 
 $botToken = getenv('BOT_TOKEN');
 $botName = getenv('BOT_NAME');
@@ -25,8 +24,7 @@ try {
 if ($telegram->handle()) {
     $input = Request::getInput();
     if ($input) {
-        $update = new Update(json_decode($input, true));
-        $handle = new MainHandler($update);
+        $handle = new MainHandler($input);
         $handle->handleRequest();
     } else {
         LogHelper::logToFile("Ошибка: Нет входящих данных.");

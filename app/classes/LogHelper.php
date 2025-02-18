@@ -14,7 +14,7 @@ Class LogHelper
      *
      * @param string $message
      * @param string $file
-     * @return void
+     * @return bool
      */
     public static function logToFile(string $message, $file = 'log.txt'): bool
     {
@@ -22,6 +22,6 @@ Class LogHelper
         $timestamp = date('Y-m-d H:i:s');
         $logMessage = "[$timestamp] $message" . PHP_EOL;
         
-        return file_put_contents($filePath, $logMessage, FILE_APPEND) !== false;
+        return (file_put_contents($filePath, $logMessage, FILE_APPEND) !== false);
     }
 }
