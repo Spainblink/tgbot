@@ -9,6 +9,7 @@ use Longman\TelegramBot\Entities\CallbackQuery;
 use classes\LogHelper;
 use classes\ButtonRender;
 use classes\NasaNews;
+use classes\Translator;
 
 /**
  * Класс со статичными методами для бработки callback запросов с NASA
@@ -42,7 +43,10 @@ class NasaHandler
         $nasaNews = new NasaNews();
         $response = $nasaNews->getAPOD();
         $explanation .= 'Название фотографии: ' . $response['title'] . PHP_EOL;
-        $explanation .= 'Авторы: ' . $response['copyright'] . PHP_EOL;
+        if ($response['copyrighy']) {
+            $explanation .= 'Авторы: ' . $response['copyright'] . PHP_EOL;
+        }        
+        // $test = Translator::translate($response['title']);
         Request::sendPhoto([
             'chat_id' => $chatID,
             'photo' => $response['url'],

@@ -23,8 +23,22 @@ Class ButtonRender
     {
         $compareBtn = new InlineKeyboardButton(['text' => 'Сравнение стоимости', 'callback_data' => 'comparePrice']);
         $nasaBtn = new InlineKeyboardButton(['text' => 'Новости NASA', 'callback_data' => 'nasa']);
-        $keyboard = new InlineKeyboard([$compareBtn], [$nasaBtn]);
+        $getDogBtn = new InlineKeyboardButton(['text' => 'Скинь фото собачки', 'callback_data' => 'getDog']);
+        $keyboard = new InlineKeyboard([$compareBtn], [$nasaBtn], [$getDogBtn]);
         
+        return $keyboard;
+    }
+
+    /**
+     * Статичный метод рендера кнопки скинуть мем с собачкой XD
+     *
+     * @return InlineKeyboard
+     */
+    public static function dogKeyboard(): InlineKeyboard
+    {
+        $getDogBtn = new InlineKeyboardButton(['text' => 'Скинь фото собачки', 'callback_data' => 'getDog']);
+        $keyboard = new InlineKeyboard([$getDogBtn]);
+
         return $keyboard;
     }
 

@@ -129,6 +129,7 @@ Class MainHandler
     private function handleCallback(): void
     {
         $callbackData = $this->callbackQuery->getData();
+
         switch($callbackData) {
             case 'comparePrice':
                 Request::sendMessage([
@@ -143,6 +144,10 @@ Class MainHandler
 
             case 'APOD':
                 NasaHandler::sendAPOD($this->chatID);
+            break;
+
+            case 'getDog':
+                DogMem::sendDogMem($this->chatID);
             break;
         }
         
