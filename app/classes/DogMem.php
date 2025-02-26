@@ -6,7 +6,8 @@ namespace classes;
 
 use Longman\TelegramBot\Request;
 use classes\ButtonRender;
-use classes\LogHelper;
+use classes\Helpers\LogHelper;
+use classes\Helpers\BaseHelper;
 
 /**
  * Класс с одним статичным методом
@@ -14,7 +15,7 @@ use classes\LogHelper;
 Class DogMem
 {
     /**
-     * Хранение адреса, API ключ не нужен
+     * Хранение адреса, API ключ не нужен, так что запрос выполняется без него
      *
      * @var string
      */
@@ -28,24 +29,12 @@ Class DogMem
      */
     public static function sendDogMem(int $chatID): void
     {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, self::$memUrl);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        if (curl_errno($ch)) {
-            LogHelper::logToFile('cURL error: ' . curl_error($ch));
-        }
-        curl_close($ch);
-        $decodedResponse = json_decode($response, true);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            LogHelper::logToFile('JSON decode error: ' . json_last_error_msg());
-        }
-
+        $decodedResponse = BaseHelper::curlHelper(self::$memUrl);
         $photoUrl = $decodedResponse['url'];
         Request::sendPhoto([
             'chat_id' => $chatID,
             'photo' => $photoUrl,
-            'reply_markup' => ButtonRender::dogKeyboard(),
+            'reply_markup' => ButtonRender::getMemKeyboard(),
         ]);
     }
 }

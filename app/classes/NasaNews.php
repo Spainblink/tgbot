@@ -4,8 +4,12 @@ declare(strict_types = 1);
 
 namespace classes;
 
-use classes\LogHelper;
 use Longman\TelegramBot\Request;
+use Longman\TelegramBot\Entities\CallbackQuery;
+use classes\Helpers\LogHelper;
+use classes\Helpers\BaseHelper;
+use classes\ButtonRender;
+use classes\Translator;
 
 /**
  * Класс взаиомдействия с NASA API
@@ -28,28 +32,41 @@ class NasaNews
     }
 
     /**
-     * Паблик метод получения ответа на запрос астрофотографии дня
+     * Статичный паблик метод для ответа на первичный callback запрос с NASA
      *
-     * @return array
+     * @param integer $chatID
+     * @return void
      */
-    public function getAPOD(): array
+    public function startNasaHandler(int $chatID): void
     {
-        $url = 'https://api.nasa.gov/planetary/apod?api_key=' . $this->api;
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
+        Request::sendMessage([
+            'chat_id' => $chatID,
+            'text'    => 'Функция находится в разработке, пока только фото дня от NASA без перевода.',
+            'reply_markup' => ButtonRender::nasaNewsKeyboard()
+        ]);
+    }
 
-        if (curl_errno($ch)) {
-            LogHelper::logToFile('cURL error: ' . curl_error($ch));
-            return [];
-        }
-        curl_close($ch);
-        $decodedResponse = json_decode($response, true);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            LogHelper::logToFile('JSON decode error: ' . json_last_error_msg());
-            return [];
-        }
-        return $decodedResponse;
+    /**
+     * Паблик метод для отправки астрофотографии дня
+     *
+     * @param integer $chatID
+     * @return void
+     */
+    public function sendAPOD(int $chatID): void
+    {
+        $explanation = '';
+        $url = 'https://api.nasa.gov/planetary/apod?api_key=' . $this->api;        
+        $response = BaseHelper::curlHelper($url);
+        $explanation .= 'Название фотографии: ' . $response['title'] . PHP_EOL;
+        if ($response['copyrighy']) {
+            $explanation .= 'Авторы: ' . $response['copyright'] . PHP_EOL;
+        }        
+        // $test = Translator::translate($response['title']);
+        Request::sendPhoto([
+            'chat_id' => $chatID,
+            'photo' => $response['url'],
+            'caption' => $explanation,
+            'reply_markup' => ButtonRender::nasaNewsKeyboard()
+        ]);
     }
 }

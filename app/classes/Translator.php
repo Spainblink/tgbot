@@ -4,12 +4,26 @@ declare(strict_types = 1);
 
 namespace classes;
 
-use classes\LogHelper;
+use classes\Helpers\LogHelper;
 
+/**
+ * Класс переводчик, но пока не нашел беслпатного API
+ */
 Class Translator
 {
+    /**
+     * Строка для доступа к API переводчика
+     *
+     * @var string
+     */
     private static string $translateUrl = 'https://libretranslate.com/translate';
 
+    /**
+     * Статичный метод перевода, но пока не нашел бесплатный API
+     *
+     * @param string $text
+     * @return array
+     */
     public static function translate(string $text): array
     {
         $data = [

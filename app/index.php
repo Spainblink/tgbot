@@ -6,8 +6,8 @@ header('Content-Type: text/html; charset=utf-8');
 
 require __DIR__ . '/vendor/autoload.php';
 
-use classes\MainHandler;
-use classes\LogHelper;
+use classes\Handlers\MainHandler;
+use classes\Helpers\LogHelper;
 use Longman\TelegramBot\Telegram;
 use Longman\TelegramBot\Request;
 
