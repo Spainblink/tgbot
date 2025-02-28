@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace classes\Handlers;
 
@@ -47,7 +47,8 @@ Class CallbackHandler
     }
 
     /**
-     * Приватный метод - главный обработчик callback запросов
+     * Приватный метод - главный обработчик callback запросов, определяет запрос
+     * и возвращает ответ
      *
      * @return void
      */
@@ -90,14 +91,6 @@ Class CallbackHandler
             case 'getRandGif':
                 $randGif = new Giphy();
                 $randGif->sendRandGif($this->chatID);
-            break;
-
-            case 'mainMenu':
-                Request::sendMessage([
-                    'chat_id' => $this->chatID,
-                    'text' => 'Выбери интересующее тебя действие.',
-                    'reply_markup' => ButtonRender::startKeyboard()
-                ]);
             break;
         }
     }

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace classes\Handlers;
 
@@ -90,7 +90,7 @@ Class MainHandler
                         $botCommand = new BotCommandHandler($this->message);
                     }
                 }
-            } else {
+            } else if (!empty($this->message->getText())) {
                 $textHandler = new TextMessageHandler($this->message);
             }
         }

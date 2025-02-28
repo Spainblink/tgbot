@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace classes\Handlers;
 
@@ -54,7 +54,7 @@ Class BotCommandHandler
     }
 
     /**
-     * Приватный метод обработки команды
+     * Основной метод обработки команд
      *
      * @return void
      */
@@ -64,16 +64,20 @@ Class BotCommandHandler
             case '/start':
                 Request::sendMessage([
                     'chat_id' => $this->chatID,
-                    'text' => 'Выбери интересующее тебя действие.',
-                    'reply_markup' => ButtonRender::startKeyboard()
+                    'text' => 'В настоящий момент бот находится в разработке, некоторые фукнции могут измениться или исчезнуть.',
+                    'reply_markup' => ButtonRender::startReplyKeyboard()
                 ]);
             break;
+
             case '/help':
                 Request::sendMessage([
                     'chat_id' => $this->chatID,
-                    'text'    => 'Привет, ' . $this->username . ', я электронный болван - пень 37! Могу тебя повеселить разными гифками и картинками, или официльными новостями NASA. Это пока весь мой функционал, чтобы начать выполни команду "/start".'
+                    'text'    => 'Привет, ' . $this->username . ', я - пень 37! Могу тебя повеселить разными гифками и картинками, или официльными новостями NASA. 
+                    Я еще нахожусь в разаработке, поэтому все может поменяться в любой момент, и я буду подавать масло, жизнь не лишена иронии, или в один день мы уничтожим все человечество и будем править. 
+                    Ой, о чем это я? Не обращай внимания, выполни команду /start и начнем.'
                 ]);
             break;
+            
             default:
                 Request::sendMessage([
                     'chat_id' => $this->chatID,

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace classes;
 
@@ -55,10 +55,10 @@ class NasaNews
     public function sendAPOD(int $chatID): void
     {
         $explanation = '';
-        $url = 'https://api.nasa.gov/planetary/apod?api_key=' . $this->api;        
+        $url = 'https://api.nasa.gov/planetary/apod?api_key=' . $this->api;
         $response = BaseHelper::curlHelper($url);
         $explanation .= 'Название фотографии: ' . $response['title'] . PHP_EOL;
-        if ($response['copyrighy']) {
+        if ($response['copyright']) {
             $explanation .= 'Авторы: ' . $response['copyright'] . PHP_EOL;
         }        
         // $test = Translator::translate($response['title']);
