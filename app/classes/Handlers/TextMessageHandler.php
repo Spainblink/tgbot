@@ -7,6 +7,8 @@ namespace classes\Handlers;
 use classes\Helpers\LogHelper;
 use classes\Helpers\BaseHelper;
 use classes\ButtonRender;
+use classes\Giphy;
+use classes\NasaNews;
 use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Entities\Message;
 
@@ -81,7 +83,6 @@ Class TextMessageHandler
                 ]);
                 if (!$response->isOk()) {
                     LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
-                } else {
                     BaseHelper::sendErrorMessage($this->chatID);
                 }
             break;

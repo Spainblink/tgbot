@@ -46,14 +46,13 @@ Class Giphy
     public function startMemHandler(int $chatID): void
     {
         $response = Request::sendMessage([
-            'chat_id' => $this->chatID,
+            'chat_id' => $chatID,
             'text'    => 'Выбери что тебе интересно, функция находится в разработке, возможно скоро все поменяется или вообще пропадет.',
             'reply_markup' => ButtonRender::getMemKeyboard()
         ]);
         if (!$response->isOk()) {
             LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
-        } else {
-            BaseHelper::sendErrorMessage($this->chatID);
+            BaseHelper::sendErrorMessage($chatID);
         }
     }
     /**
@@ -74,7 +73,6 @@ Class Giphy
         ]);
         if (!$response->isOk()) {
             LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
-        } else {
             BaseHelper::sendErrorMessage($chatID);
         }
     }
@@ -97,7 +95,6 @@ Class Giphy
         ]);
         if (!$response->isOk()) {
             LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
-        } else {
             BaseHelper::sendErrorMessage($chatID);
         }
     }
@@ -120,7 +117,6 @@ Class Giphy
         ]);
         if (!$response->isOk()) {
             LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
-        } else {
             BaseHelper::sendErrorMessage($chatID);
         }
     }

@@ -38,7 +38,6 @@ Class DogMem
         ]);
         if (!$response->isOk()) {
             LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
-        } else {
             BaseHelper::sendErrorMessage($chatID);
         }
     }

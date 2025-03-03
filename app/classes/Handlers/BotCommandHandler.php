@@ -70,7 +70,6 @@ Class BotCommandHandler
                 ]);
                 if (!$response->isOk()) {
                     LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
-                } else {
                     BaseHelper::sendErrormessage($this->chatID);
                 }
             break;
@@ -82,7 +81,6 @@ Class BotCommandHandler
                 ]);
                 if (!$response->isOk()) {
                     LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
-                } else {
                     BaseHelper::sendErrormessage($this->chatID);
                 }
             break;
@@ -94,7 +92,6 @@ Class BotCommandHandler
                 ]);
                 if (!$response->isOk()) {
                     LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
-                } else {
                     BaseHelper::sendErrormessage($this->chatID);
                 }
             break;
