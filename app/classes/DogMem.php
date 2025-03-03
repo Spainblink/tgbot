@@ -31,10 +31,15 @@ Class DogMem
     {
         $decodedResponse = BaseHelper::curlHelper(self::$memUrl);
         $photoUrl = $decodedResponse['url'];
-        Request::sendPhoto([
+        $response = Request::sendPhoto([
             'chat_id' => $chatID,
             'photo' => $photoUrl,
             'reply_markup' => ButtonRender::getMemKeyboard(),
         ]);
+        if (!$response->isOk()) {
+            LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
+        } else {
+            BaseHelper::sendErrorMessage($chatID);
+        }
     }
 }

@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace classes\Handlers;
 
-use classes\Helpers;
+use classes\Helpers\LogHelper;
+use classes\Helpers\BaseHelper;
 use classes\ButtonRender;
 use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Entities\Message;
@@ -62,28 +63,27 @@ Class TextMessageHandler
     private function textMessageHandler(): void
     {
         switch ($this->textMessage) {
-
             case 'Официальные новости от NASA с переводом':
-                Request::sendMessage([
-                    'chat_id' => $this->chatID,
-                    'text'    => 'Данная функция находится в разработке, еще нет перевода и соответственно новостей, только астрофотография дня, которая обновляется по восточному времени США. Это по московскому времени: 7:00.',
-                    'reply_markup' => ButtonRender::nasaNewsKeyboard()
-                ]);
+                $nasa = new NasaNews();
+                $nasa->startNasaHandler($this->chatID);
             break;
 
             case 'Перлы с питомцами':
-                Request::sendMessage([
-                    'chat_id' => $this->chatID,
-                    'text'    => 'Выбери что тебе интересно, функция находится в разработке, возможно скоро все поменяется или вообще пропадет.',
-                    'reply_markup' => ButtonRender::getMemKeyboard()
-                ]);
+                $giphy = new Giphy();
+                $giphy->startMemHandler($this->chatID);
             break;
 
             default:
-                Request::sendMessage([
+                $response = Request::sendMessage([
                     'chat_id' => $this->chatID,
-                    'text'    => 'Отвечать на текстовые сообщения? Сомнительное удовольствие... Лучше начни с команды /help или нажми кнопку ниже.'
+                    'text'    => 'Отвечать на текстовые сообщения? Сомнительное удовольствие... Лучше начни с команды /help или нажми кнопку ниже.',
+                    'reply_markup' => ButtonRender::startReplyKeyboard()
                 ]);
+                if (!$response->isOk()) {
+                    LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
+                } else {
+                    BaseHelper::sendErrorMessage($this->chatID);
+                }
             break;
         }        
     }

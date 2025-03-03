@@ -32,18 +32,23 @@ class NasaNews
     }
 
     /**
-     * Статичный паблик метод для ответа на первичный callback запрос с NASA
+     * Паблик метод для первичной обработки запроса с NASA
      *
      * @param integer $chatID
      * @return void
      */
     public function startNasaHandler(int $chatID): void
     {
-        Request::sendMessage([
+        $response = Request::sendMessage([
             'chat_id' => $chatID,
-            'text'    => 'Функция находится в разработке, пока только фото дня от NASA без перевода.',
+            'text'    => 'Данная функция находится в разработке, еще нет перевода и соответственно новостей, только астрофотография дня, которая обновляется по восточному времени США. Это 7:00 по московскому времени.',
             'reply_markup' => ButtonRender::nasaNewsKeyboard()
         ]);
+        if (!$response->isOk()) {
+            LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
+        } else {
+            BaseHelper::sendErrorMessage($chatID);
+        }
     }
 
     /**
@@ -62,11 +67,16 @@ class NasaNews
             $explanation .= 'Авторы: ' . $response['copyright'] . PHP_EOL;
         }        
         // $test = Translator::translate($response['title']);
-        Request::sendPhoto([
+        $response = Request::sendPhoto([
             'chat_id' => $chatID,
             'photo' => $response['url'],
             'caption' => $explanation,
             'reply_markup' => ButtonRender::nasaNewsKeyboard()
         ]);
+        if (!$response->isOk()) {
+            LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
+        } else {
+            BaseHelper::sendErrorMessage($chatID);
+        }
     }
 }

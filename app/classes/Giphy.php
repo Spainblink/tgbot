@@ -38,6 +38,25 @@ Class Giphy
     }
 
     /**
+     * Паблик метод для первичной обработки запроса мемов
+     *
+     * @param integer $chatID
+     * @return void
+     */
+    public function startMemHandler(int $chatID): void
+    {
+        $response = Request::sendMessage([
+            'chat_id' => $this->chatID,
+            'text'    => 'Выбери что тебе интересно, функция находится в разработке, возможно скоро все поменяется или вообще пропадет.',
+            'reply_markup' => ButtonRender::getMemKeyboard()
+        ]);
+        if (!$response->isOk()) {
+            LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
+        } else {
+            BaseHelper::sendErrorMessage($this->chatID);
+        }
+    }
+    /**
      * Статичный метод отправки gif с котиками
      *
      * @param integer $chatID
@@ -48,11 +67,16 @@ Class Giphy
         $url = $this->giphyUrl . $this->giphyAPI . '&tag=cat';
         $decodedResponse = BaseHelper::curlHelper($url);
         $gifUrl = $decodedResponse['data']['images']['original']['url'];
-        Request::sendAnimation([
+        $response = Request::sendAnimation([
             'chat_id' => $chatID,
             'animation' => $gifUrl,
             'reply_markup' => ButtonRender::getMemKeyboard()
         ]);
+        if (!$response->isOk()) {
+            LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
+        } else {
+            BaseHelper::sendErrorMessage($chatID);
+        }
     }
 
     /**
@@ -66,11 +90,16 @@ Class Giphy
         $url = $this->giphyUrl . $this->giphyAPI . '&tag=dog';   
         $decodedResponse = BaseHelper::curlHelper($url);
         $gifUrl = $decodedResponse['data']['images']['original']['url'];
-        Request::sendAnimation([
+        $response = Request::sendAnimation([
             'chat_id' => $chatID,
             'animation' => $gifUrl,
             'reply_markup' => ButtonRender::getMemKeyboard()
         ]);
+        if (!$response->isOk()) {
+            LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
+        } else {
+            BaseHelper::sendErrorMessage($chatID);
+        }
     }
 
     /**
@@ -84,10 +113,15 @@ Class Giphy
         $url = $this->giphyUrl . $this->giphyAPI;
         $decodedResponse = BaseHelper::curlHelper($url);
         $gifUrl = $decodedResponse['data']['images']['original']['url'];
-        Request::sendAnimation([
+        $response = Request::sendAnimation([
             'chat_id' => $chatID,
             'animation' => $gifUrl,
             'reply_markup' => ButtonRender::getMemKeyboard()
         ]);
+        if (!$response->isOk()) {
+            LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
+        } else {
+            BaseHelper::sendErrorMessage($chatID);
+        }
     }
 }

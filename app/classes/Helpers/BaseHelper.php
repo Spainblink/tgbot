@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace classes\Helpers;
 
+use Longman\TelegramBot\Request;
+
 /**
  * Класс помощник для разгрузки основных классов
  */
@@ -33,5 +35,19 @@ Class BaseHelper
         }
 
         return $decodedResponse;
+    }
+
+    /**
+     * Статичный метод для отправки сообщения с ошибкой, если не удалось отправить запрашиваемый ответ
+     *
+     * @param integer $userID
+     * @return ServerResponse
+     */
+    public static function sendErrorMessage(int $userID): void
+    {
+        Request::sendMessage([
+            'chat_id' => $this->chatID,
+            'text' => 'К сожалению, произошла ошибка и она была залогирована. Если есть возможность, свяжитесь с разработчиком и сообщите о проблеме.'
+        ]);
     }
 }

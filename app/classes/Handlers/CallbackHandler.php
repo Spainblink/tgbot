@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace classes\Handlers;
 
 use classes\Helpers\LogHelper;
+use classes\Helpers\BaseHelper;
 use classes\NasaNews;
 use classes\ButtonRender;
 use classes\DogMem;
@@ -56,19 +57,6 @@ Class CallbackHandler
     {
         $callbackData = $this->callbackQuery->getData();
         switch ($callbackData) {
-            case 'nasa':
-                $nasa = new NasaNews();
-                $nasa->startNasaHandler($this->chatID);
-            break;
-
-            case 'mems':
-                Request::sendMessage([
-                    'chat_id' => $this->chatID,
-                    'text' => 'Выбери мем, который тебе по душе. :)',
-                    'reply_markup' => ButtonRender::getMemKeyboard()
-                ]);
-            break;
-
             case 'APOD':
                 $nasa = new NasaNews();
                 $nasa->sendAPOD($this->chatID);

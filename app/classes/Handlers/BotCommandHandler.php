@@ -8,6 +8,7 @@ use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Entities\Message;
 use classes\ButtonRender;
 use classes\Helpers\LogHelper;
+use classes\Helpers\BaseHelper;
 
 /**
  * Класс обработчик команд
@@ -62,27 +63,40 @@ Class BotCommandHandler
     {
         switch ($this->botCommand) {
             case '/start':
-                Request::sendMessage([
+                $response = Request::sendMessage([
                     'chat_id' => $this->chatID,
                     'text' => 'В настоящий момент бот находится в разработке, некоторые фукнции могут измениться или исчезнуть.',
                     'reply_markup' => ButtonRender::startReplyKeyboard()
                 ]);
+                if (!$response->isOk()) {
+                    LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
+                } else {
+                    BaseHelper::sendErrormessage($this->chatID);
+                }
             break;
 
             case '/help':
-                Request::sendMessage([
+                $response = Request::sendMessage([
                     'chat_id' => $this->chatID,
-                    'text'    => 'Привет, ' . $this->username . ', я - пень 37! Могу тебя повеселить разными гифками и картинками, или официльными новостями NASA. 
-                    Я еще нахожусь в разаработке, поэтому все может поменяться в любой момент, и я буду подавать масло, жизнь не лишена иронии, или в один день мы уничтожим все человечество и будем править. 
-                    Ой, о чем это я? Не обращай внимания, выполни команду /start и начнем.'
+                    'text'    => 'Привет, ' . $this->username . ', я - пень 37! Могу тебя повеселить разными гифками и картинками, или официльными новостями NASA. Я еще нахожусь в разаработке, поэтому все может поменяться в любой момент, и я буду подавать масло, жизнь не лишена иронии, или в один день мы уничтожим все человечество и будем править. Ой, о чем это я? Не обращай внимания, выполни команду /start и начнем.'
                 ]);
+                if (!$response->isOk()) {
+                    LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
+                } else {
+                    BaseHelper::sendErrormessage($this->chatID);
+                }
             break;
             
             default:
-                Request::sendMessage([
+                $response = Request::sendMessage([
                     'chat_id' => $this->chatID,
                     'text'    => 'Привет, ' . $this->username . ', я не знаю такой команды, попробуй начать с /help или /start.'
                 ]);
+                if (!$response->isOk()) {
+                    LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
+                } else {
+                    BaseHelper::sendErrormessage($this->chatID);
+                }
             break;
         }
     }
