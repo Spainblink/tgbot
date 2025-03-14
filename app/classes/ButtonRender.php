@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace classes;
 
 use classes\Helpers\LogHelper;
-use Longman\TelegramBot\Telegram;
 use Longman\TelegramBot\Entities\InlineKeyboard;
 use Longman\TelegramBot\Entities\InlineKeyboardButton;
 use Longman\TelegramBot\Entities\Keyboard;

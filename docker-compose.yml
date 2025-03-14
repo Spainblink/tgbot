@@ -11,7 +11,7 @@ services:
     build:
       context: .
       dockerfile: dockerfile
-    container_name: test
+    container_name: tg-bot
     volumes:
       - ./app:/var/www/html
       - ./vendor:/var/www/html/vendor

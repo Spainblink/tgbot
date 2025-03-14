@@ -48,18 +48,26 @@ Class BotCommandHandler
     public function __construct(Message $message)
     {
         $this->message = $message;
+        $this->initialize();
+    }
+
+    /**
+     * Инициализирует поля класса обработчика
+     *
+     * @return void
+     */
+    private function initialize(): void
+    {
         $this->chatID = $this->message->getChat()->getId();
         $this->username = $this->message->getFrom()->getFirstName();
         $this->botCommand = $this->message->getFullCommand();
-        $this->botCommandHandler();
     }
-
     /**
      * Основной метод обработки команд
      *
      * @return void
      */
-    private function botCommandHandler(): void
+    public function botCommandHandle(): void
     {
         switch ($this->botCommand) {
             case '/start':

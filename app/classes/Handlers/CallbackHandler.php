@@ -44,16 +44,15 @@ Class CallbackHandler
     {
         $this->callbackQuery = $callback;
         $this->chatID = $this->callbackQuery->getMessage()->getChat()->getId();
-        $this->callbackHandler();
     }
 
     /**
-     * Приватный метод - главный обработчик callback запросов, определяет запрос
+     * Главный обработчик callback запросов, определяет запрос
      * и возвращает ответ
      *
      * @return void
      */
-    private function callbackHandler(): void
+    public function callbackHandle(): void
     {
         $callbackData = $this->callbackQuery->getData();
         switch ($callbackData) {

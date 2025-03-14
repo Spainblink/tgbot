@@ -50,10 +50,19 @@ Class TextMessageHandler
     public function __construct(Message $message)
     {
         $this->message = $message;
+        $this->initialize();
+    }
+
+    /**
+     * Инициализирует поля класса обработчика
+     *
+     * @return void
+     */
+    private function initialize(): void
+    {
         $this->textMessage = $this->message->getText();
         $this->username = $this->message->getFrom()->getFirstName();
         $this->chatID = $this->message->getChat()->getId();
-        $this->textMessageHandler();
     }
 
     /**
@@ -62,7 +71,7 @@ Class TextMessageHandler
      *
      * @return void
      */
-    private function textMessageHandler(): void
+    public function textMessageHandle(): void
     {
         switch ($this->textMessage) {
             case 'Официальные новости от NASA с переводом':
