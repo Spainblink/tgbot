@@ -40,14 +40,14 @@ Class BaseHelper
     /**
      * Статичный метод для отправки сообщения с ошибкой, если не удалось отправить запрашиваемый ответ
      *
-     * @param integer $userID
+     * @param integer $chatID
      * @return ServerResponse
      */
-    public static function sendErrorMessage(int $userID): void
+    public static function sendErrorMessage(int $chatID): void
     {
         Request::sendMessage([
-            'chat_id' => $this->chatID,
-            'text' => 'К сожалению, произошла ошибка и она была залогирована. Если есть возможность, свяжитесь с разработчиком и сообщите о проблеме.'
+            'chat_id' => $chatID,
+            'text' => 'К сожалению произошла ошибка и она была залогирована. Если есть возможность, свяжитесь с разработчиком и сообщите о проблеме.'
         ]);
     }
 }
