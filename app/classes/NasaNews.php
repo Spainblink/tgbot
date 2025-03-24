@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace classes;
 
 use Longman\TelegramBot\Request;
-use Longman\TelegramBot\Entities\CallbackQuery;
 use classes\Helpers\LogHelper;
 use classes\Helpers\BaseHelper;
 use classes\ButtonRender;

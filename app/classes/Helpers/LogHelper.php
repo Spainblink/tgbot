@@ -10,7 +10,7 @@ namespace classes\Helpers;
 Class LogHelper
 {
     /**
-     * Статичный метод логирования в файл
+     * Статичный метод логирования строки в файл
      *
      * @param string $message
      * @param string $file
@@ -21,6 +21,22 @@ Class LogHelper
         $filePath = __DIR__ . '/' . $file;
         $timestamp = date('Y-m-d H:i:s');
         $logMessage = "[$timestamp] $message" . PHP_EOL;
+        
+        return (file_put_contents($filePath, $logMessage, FILE_APPEND) !== false);
+    }
+    
+    /**
+     * Статичный метод логирования декодированного json в файл
+     *
+     * @param array $json
+     * @param string $file
+     * @return boolean
+     */
+    public static function arrLogToFile(array $json, $file = 'arr_log.txt'): bool
+    {
+        $filePath = __DIR__ . '/' . $file;
+        $timestamp = date('Y-m-d H:i:s');
+        $logMessage = "[$timestamp] " . print_r($json, true) . PHP_EOL;
         
         return (file_put_contents($filePath, $logMessage, FILE_APPEND) !== false);
     }

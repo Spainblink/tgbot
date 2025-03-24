@@ -28,7 +28,7 @@ Class BaseHelper
             return ['error' => 'cURL error: ' . curl_error($ch)];
         }
         curl_close($ch);
-        $decodedResponse = json_decode($response, true);
+        $decodedResponse = json_decode($response, true);     
         if (json_last_error() !== JSON_ERROR_NONE) {
             LogHelper::logToFile('JSON decode error: ' . json_last_error_msg());
             return ['error' => 'JSON decode error: ' . json_last_error_msg()];
