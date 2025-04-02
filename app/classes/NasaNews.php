@@ -65,15 +65,28 @@ class NasaNews
             $explanation .= 'Авторы: ' . $response['copyright'] . PHP_EOL;
         }        
         // $test = Translator::translate($response['title']);
-        $response = Request::sendPhoto([
+        $tgResponse = Request::sendPhoto([
             'chat_id' => $chatID,
             'photo' => $response['url'],
             'caption' => $explanation,
             'reply_markup' => ButtonRender::nasaNewsKeyboard()
         ]);
-        if (!$response->isOk()) {
-            LogHelper::logToFile('Ошибка отправки сообщения: ' . $response->getDescription());
-            BaseHelper::sendErrorMessage($chatID);
+        if (!$tgResponse->isOk()) {
+            if ($response['media_type'] == 'video') {
+                $tgResponse = Request::sendMessage([
+                    'chat_id' => $chatID,
+                    'text' => 'NASA, почему-то вместо астрофотографии дня, выбрал астровидео дня.' . PHP_EOL . 'Название: ' . $response['title'] . PHP_EOL . $response['url']
+                ]);
+                if (!$tgResponse->isOk()) {
+                    LogHelper::logToFile('Ошибка отправки второго сообщения: ' . $tgResponse->getDescription());
+                    LogHelper::arrLogToFile($response);
+                    BaseHelper::sendErrorMessage($chatID);
+                }
+            } else {
+                LogHelper::logToFile('Ошибка отправки сообщения: ' . $tgResponse->getDescription());
+                LogHelper::arrLogToFile($response);
+                BaseHelper::sendErrorMessage($chatID);
+            }
         }
     }
 }
