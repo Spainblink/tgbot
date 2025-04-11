@@ -2,6 +2,7 @@
 composer.json
 composer.lock
 log.txt
+arr_log.txt
 /vendor
 /certs
 /vendor/
