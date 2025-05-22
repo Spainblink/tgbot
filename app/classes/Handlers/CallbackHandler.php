@@ -4,21 +4,15 @@ declare(strict_types=1);
 
 namespace classes\Handlers;
 
-use classes\Helpers\LogHelper;
-use classes\Helpers\BaseHelper;
 use classes\NasaNews;
-use classes\ButtonRender;
 use classes\DogMem;
 use classes\Giphy;
-use Longman\TelegramBot\Telegram;
-use Longman\TelegramBot\Request;
-use Longman\TelegramBot\Entities\Message;
 use Longman\TelegramBot\Entities\CallbackQuery;
 
 /**
  * Класс обработчик всех callback запросов
  */
-Class CallbackHandler
+Class CallbackHandler implements IHandler
 {
 
 /**
@@ -52,7 +46,7 @@ Class CallbackHandler
      *
      * @return void
      */
-    public function callbackHandle(): void
+    public function handleRequest(): void
     {
         $callbackData = $this->callbackQuery->getData();
         switch ($callbackData) {

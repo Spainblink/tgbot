@@ -15,7 +15,7 @@ use Longman\TelegramBot\Entities\Message;
 /**
  * Класс обработчик текстовых сообщений
  */
-Class TextMessageHandler
+Class TextMessageHandler implements IHandler
 {
     /**
      * Входящее сообщение
@@ -23,45 +23,30 @@ Class TextMessageHandler
      * @var Message
      */
     private Message $message;
-    /**
-     * Юзернейм для удобства
-     *
-     * @var string
-     */
-    private string $username;
+
     /**
      * Текст сообщения
      *
      * @var string
      */
     private string $textMessage;
+
     /**
-     * ChatID так для удобства
+     * ChatID для сообщений
      *
      * @var integer
      */
     private int $chatID;
 
     /**
-     * Конструктор, с определением необходимых полей класса и запуском обработчика
+     * Конструктор, инициализирует необходимые поля класса
      *
      * @param Message $message
      */
     public function __construct(Message $message)
     {
         $this->message = $message;
-        $this->initialize();
-    }
-
-    /**
-     * Инициализирует поля класса обработчика
-     *
-     * @return void
-     */
-    private function initialize(): void
-    {
         $this->textMessage = $this->message->getText();
-        $this->username = $this->message->getFrom()->getFirstName();
         $this->chatID = $this->message->getChat()->getId();
     }
 
@@ -71,7 +56,7 @@ Class TextMessageHandler
      *
      * @return void
      */
-    public function textMessageHandle(): void
+    public function handleRequest(): void
     {
         switch ($this->textMessage) {
             case 'Официальные новости от NASA с переводом':

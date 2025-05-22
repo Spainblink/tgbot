@@ -13,7 +13,7 @@ use classes\Helpers\BaseHelper;
 /**
  * Класс обработчик команд
  */
-Class BotCommandHandler
+Class BotCommandHandler implements IHandler
 {
     /**
      * Поле для передачи в обработчик
@@ -41,33 +41,24 @@ Class BotCommandHandler
     private int $chatID;
 
     /**
-     * Конструктор класса обработчика, при создании запускает основной метод
+     * Конструктор класса обработчика команд, инициализирует необходимые поля для обработки
      *
      * @param Message $message
      */
     public function __construct(Message $message)
     {
         $this->message = $message;
-        $this->initialize();
-    }
-
-    /**
-     * Инициализирует поля класса обработчика
-     *
-     * @return void
-     */
-    private function initialize(): void
-    {
         $this->chatID = $this->message->getChat()->getId();
         $this->username = $this->message->getFrom()->getFirstName();
         $this->botCommand = $this->message->getFullCommand();
     }
+
     /**
-     * Основной метод обработки команд
+     * Основной метод обработки команд от пользователя
      *
      * @return void
      */
-    public function botCommandHandle(): void
+    public function handleRequest(): void
     {
         switch ($this->botCommand) {
             case '/start':

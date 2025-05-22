@@ -8,7 +8,6 @@ use Longman\TelegramBot\Request;
 use classes\Helpers\LogHelper;
 use classes\Helpers\BaseHelper;
 use classes\ButtonRender;
-use classes\Translator;
 
 /**
  * Класс взаиомдействия с NASA API
@@ -63,7 +62,7 @@ class NasaNews
         $explanation .= 'Название фотографии: ' . $response['title'] . PHP_EOL;
         if ($response['copyright']) {
             $explanation .= 'Авторы: ' . $response['copyright'] . PHP_EOL;
-        }        
+        }
         // $test = Translator::translate($response['title']);
         $tgResponse = Request::sendPhoto([
             'chat_id' => $chatID,
@@ -71,6 +70,7 @@ class NasaNews
             'caption' => $explanation,
             'reply_markup' => ButtonRender::nasaNewsKeyboard()
         ]);
+        // Добавил обработку ссылок с ютуба, НАСА иногда присылает а иногда рандомно генерит текст -_-
         if (!$tgResponse->isOk()) {
             if ($response['media_type'] == 'video') {
                 $tgResponse = Request::sendMessage([

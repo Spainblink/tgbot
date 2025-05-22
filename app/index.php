@@ -6,7 +6,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 require __DIR__ . '/vendor/autoload.php';
 
-use classes\Handlers\MainHandler;
+use classes\Factory\HandlerFactory;
 use classes\Helpers\LogHelper;
 use Longman\TelegramBot\Telegram;
 use Longman\TelegramBot\Request;
@@ -24,8 +24,9 @@ try {
 if ($telegram->handle()) {
     $input = Request::getInput();
     if ($input) {
-        $handle = new MainHandler($input);
-        $handle->handleRequest();
+        $handle = new HandlerFactory();
+        $handler = $handle->createHandler($input);
+        $handler->handleRequest();
     } else {
         LogHelper::logToFile("Ошибка: Нет входящих данных.");
     }
