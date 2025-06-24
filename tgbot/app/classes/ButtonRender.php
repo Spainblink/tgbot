@@ -10,7 +10,7 @@ use Longman\TelegramBot\Entities\Keyboard;
 use Longman\TelegramBot\Entities\KeyboardButton;
 
 /**
- * Класс со статичными методами для рендера всех callback кнопок
+ * Класс со статичными методами для рендера всех кнопок
  */
 Class ButtonRender
 {

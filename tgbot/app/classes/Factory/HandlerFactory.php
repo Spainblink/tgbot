@@ -30,7 +30,7 @@ Class HandlerFactory
         if (!empty($callbackQuery)) {
             return new CallbackHandler($callbackQuery);
         }
-        $message = $update->getMessage();                  
+        $message = $update->getMessage();
         
         return $this->createMessageHandler($message);
     }

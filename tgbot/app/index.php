@@ -24,8 +24,8 @@ try {
 if ($telegram->handle()) {
     $input = Request::getInput();
     if ($input) {
-        $handle = new HandlerFactory();
-        $handler = $handle->createHandler($input);
+        $factory = new HandlerFactory();
+        $handler = $factory->createHandler($input);
         $handler->handleRequest();
     } else {
         LogHelper::logToFile("Ошибка: Нет входящих данных.");

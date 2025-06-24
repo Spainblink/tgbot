@@ -29,7 +29,7 @@ Class Giphy
     private string $giphyUrl;
 
     /**
-     * Конструктор с определением необлходимых зависимостей для доступа к API Giphy
+     * Конструктор с определением необходимых зависимостей для доступа к API Giphy
      */
     public function __construct()
     {
@@ -56,7 +56,7 @@ Class Giphy
         }
     }
     /**
-     * Статичный метод отправки gif с котиками
+     * Метод отправки рандомного gif с котиками
      *
      * @param integer $chatID
      * @return void
@@ -78,7 +78,7 @@ Class Giphy
     }
 
     /**
-     * Статичный метод отправки gif с собачками
+     * Метод отправки рандомного gif с собачками
      *
      * @param integer $chatID
      * @return void
@@ -100,7 +100,7 @@ Class Giphy
     }
 
     /**
-     * Статичный метод отправки рандомной gif
+     * Метод отправки рандомной gif
      *
      * @param integer $chatID
      * @return void

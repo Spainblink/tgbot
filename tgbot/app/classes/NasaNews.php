@@ -70,7 +70,7 @@ class NasaNews
             'caption' => $explanation,
             'reply_markup' => ButtonRender::nasaNewsKeyboard()
         ]);
-        // Добавил обработку ссылок с ютуба, НАСА иногда присылает а иногда рандомно генерит текст -_-
+        // Добавил обработку ссылок с ютуба, НАСА иногда их присылает, а иногда рандомно генерит текст -_-
         if (!$tgResponse->isOk()) {
             if ($response['media_type'] == 'video') {
                 $tgResponse = Request::sendMessage([

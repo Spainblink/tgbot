@@ -9,5 +9,10 @@ namespace classes\Handlers;
  */
 Interface IHandler
 {
+    /**
+     * Основной метод обработки входящего сообщения
+     *
+     * @return void
+     */
     public function handleRequest(): void;
 }

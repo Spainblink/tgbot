@@ -1,0 +1,10 @@
+FROM php:8.2-apache
+
+# Устанавливаем необходимые зависимости и расширения
+RUN apt-get update && apt-get install -y git unzip libzip-dev \
+    && docker-php-ext-install zip
+
+# Копируем composer (для возможности запускать composer внутри контейнера, если нужно)
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
