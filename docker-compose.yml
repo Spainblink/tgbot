@@ -24,9 +24,6 @@ services:
       - "80"
     volumes:
       - ./tgbot/app:/var/www/html
-      - ./tgbot/vendor:/var/www/html/vendor
-      - ./tgbot/composer.json:/var/www/html/composer.json
-      - ./tgbot/composer.lock:/var/www/html/composer.lock
     environment:
       - BOT_TOKEN=${BOT_TOKEN}
       - BOT_NAME=${BOT_NAME}
@@ -44,6 +41,7 @@ services:
     environment:
       - WEBSOCKET_ENABLED=true
       - ROCKET_PORT=80
+      - ADMIN_TOKEN=${ADMIN_TOKEN}
     volumes:
       - ./vaultwarden/data:/data
     restart: unless-stopped
